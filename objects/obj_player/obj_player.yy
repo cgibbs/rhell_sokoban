@@ -28,7 +28,7 @@
   "physicsShapePoints":[],
   "physicsStartAwake":true,
   "properties":[
-    {"$GMObjectProperty":"v2","%Name":"behavior_type","filters":[],"listItems":[],"multiselect":false,"name":"behavior_type","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"wood","varType":2,},
+    {"$GMObjectProperty":"v2","%Name":"behavior_type","filters":[],"listItems":[],"multiselect":false,"name":"behavior_type","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"fire","varType":2,},
   ],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",

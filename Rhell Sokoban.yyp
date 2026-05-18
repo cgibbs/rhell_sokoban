@@ -35,7 +35,7 @@
     {"id":{"name":"CheckIfEmpty","path":"scripts/CheckIfEmpty/CheckIfEmpty.yy",},},
     {"id":{"name":"doBehavior","path":"scripts/doBehavior/doBehavior.yy",},},
     {"id":{"name":"getNeighbors","path":"scripts/getNeighbors/getNeighbors.yy",},},
-    {"id":{"name":"getNeighborsEmpty","path":"scripts/getNeighborsEmpty/getNeighborsEmpty.yy",},},
+    {"id":{"name":"getNeighborsIncludeEmpty","path":"scripts/getNeighborsIncludeEmpty/getNeighborsIncludeEmpty.yy",},},
     {"id":{"name":"writeToGui","path":"scripts/writeToGui/writeToGui.yy",},},
     {"id":{"name":"s3","path":"sprites/s3/s3.yy",},},
     {"id":{"name":"sBox","path":"sprites/sBox/sBox.yy",},},

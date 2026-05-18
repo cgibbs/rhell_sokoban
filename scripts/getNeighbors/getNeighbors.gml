@@ -12,7 +12,7 @@ function getNeighbors(inst){
 	
 	neighbors = [];
 	for (k = 0; k < array_length(temp_neighbors); k++) {
-		if (temp_neighbors[k] != noone) {
+		if (temp_neighbors[k] != noone && temp_neighbors[k].processing == true) {
 			array_push(neighbors, temp_neighbors[k]);
 		}
 	}

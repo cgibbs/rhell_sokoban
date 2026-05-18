@@ -20,7 +20,7 @@ function behaviorWood(beh_inst) {
 	for (j = 0; j < array_length(neighbors); j++) {
 		neighbor = neighbors[j];
 		if (neighbor.behavior_type == "fire") {
-			if (beh_inst.timeToBurn == 0) {
+			if (beh_inst.timeToBurn - 1 == 0) {
 				newObjType = obj_fire;
 				newTimeToBurn = woodTimeToStayBurning;
 			}
@@ -59,7 +59,6 @@ function behaviorFire(beh_inst) {
 }
 
 function behaviorCloner(beh_inst) {
-	show_debug_message("cloning time");
 	if (beh_inst.usesRemaining == 0) {
 		show_debug_message("empty cloner");
 		return;	

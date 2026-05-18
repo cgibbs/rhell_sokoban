@@ -43,6 +43,12 @@ if (temp_room_step != global.room_step) {
 	}
 	
 	for (i = 0; i < array_length(beh); i++) {
+		// set all to true so that behavioral tiles don't do behavior based on newly-created
+		// ones halfway through
+		beh[i].processing = true;
+	}
+	
+	for (i = 0; i < array_length(beh); i++) {
 		doBehavior(beh[i]);
 	}
 	
