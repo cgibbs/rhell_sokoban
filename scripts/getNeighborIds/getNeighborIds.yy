@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"getNeighborIds",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"getNeighborIds",
+  "parent":{
+    "name":"scripts",
+    "path":"folders/scripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

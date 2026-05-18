@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"doBehavior",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"doBehavior",
+  "parent":{
+    "name":"scripts",
+    "path":"folders/scripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
