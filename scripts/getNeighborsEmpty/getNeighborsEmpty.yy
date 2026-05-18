@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"getNeighborsEmpty",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"getNeighborsEmpty",
+  "parent":{
+    "name":"scripts",
+    "path":"folders/scripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
