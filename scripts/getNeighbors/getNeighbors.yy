@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"getNeighborIds",
+  "%Name":"getNeighbors",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"getNeighborIds",
+  "name":"getNeighbors",
   "parent":{
     "name":"scripts",
     "path":"folders/scripts.yy",

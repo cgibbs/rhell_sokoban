@@ -34,21 +34,19 @@ if(down)
 }
 
 if (temp_room_step != global.room_step) {
-	show_debug_message("updating room state");
 	// copy of all behavioral objects
 	beh = [];
-	//with (instance_find(behavioral_objects)) {
 	with (all) {
 		if (array_contains(behavioral_objects, object_index)) {
 			array_push(other.beh, self);
 		}
 	}
 	
-	for (i = 0; i < array_length(other.beh); i++) {
-		doBehavior(other.beh[i]);
+	for (i = 0; i < array_length(beh); i++) {
+		doBehavior(beh[i]);
 	}
 	
-	for (i = 0; i < array_length(other.beh); i++) {
-		instance_destroy(other.beh[i]);	
+	for (i = 0; i < array_length(beh); i++) {
+		instance_destroy(beh[i]);	
 	}
 }

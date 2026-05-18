@@ -1,0 +1,29 @@
+Sokoban that does physics-y interactions between adjacent tiles, kinda like the stuff happening in Rhell. Changes happen once per player move for consistency
+
+Examples:
+* Ice blocks can become water when near fire
+* Ice slides until it hits a solid surface, bounces off of slime
+* water can carry electricity
+* fire can be extinguished if near more than one water source
+* water can be blown but not pushed (maybe?)
+* water that's next to fire for too long can be turned into steam
+* arrow tiles impart movement; most tiles move only a single step, but ice tiles slide, and multiple tiles moving can cause interesting effects
+* rock is inert, but can be moved by the player or block fans
+* dirt fills holes (only water-filled ones like Isles of Sea and Sky?)
+* wire floors transmit electricity through connected sides but don't block tile movement
+* dirt grounds electrical currents, including wire floors
+* wet wood that can be next to fire for a while before turning into regular wood
+
+Need to be able to process instantaneous movement versus turn-based movement, e.g. "moving across a series of arrow tiles" or "arrow tile moves player into pushing a block" as opposed to "player has moved and now we need to update the board". Treating them the same will create situations where the player gets moved by tiles and causes a lot of board updates, which can cause stateful blocks with timer variables (e.g. water turns to steam if left by fire too long) to pop their effects before the player ever gets a chance to react. It also prevents situations like "a fire tile is moving past several ice tiles via arrow tiles and melts all of them", because the melt effect would only happen on a full board update.
+
+Could add items for handling dangerous surfaces, e.g. oven mitts to move fire blocks?
+
+Algorithm for doing the full board update:
+1. Get all instances on board in the behavioral category (board_state)
+2. Iterate over board_state: instance_copy the instance, run behavioral code based on neighbors with "processed" variable set to false, mark the "processed" variable as true on the new copy (NEVER SET "processed" VARIABLE TO TRUE ON AN INSTANCE IN board_state, ONLY ON COPY)
+3. Delete all objects in board_state
+4. Done?
+
+Might need to introduce an order for processing behavioral objects on the board to make things more consistent. For example, if you push a fire block next to both a burnable object and a water block, you want that to behave the same way each time (water puts out fire before it can burn the wood).
+
+Behavior methods should only affect themselves based on their neighbors. Don't make a fire method that burns its surroundings, make being burned a part of each burnable object's behavior code.
