@@ -60,6 +60,11 @@ function behaviorFire(beh_inst) {
 
 function behaviorCloner(beh_inst) {
 	show_debug_message("cloning time");
+	if (beh_inst.usesRemaining == 0) {
+		show_debug_message("empty cloner");
+		return;	
+	}
+	newUsesRemaining = beh_inst.usesRemaining;
 	// get neighbors
 	neighbors = getNeighbors(beh_inst);
 	show_debug_message(neighbors);
@@ -101,6 +106,7 @@ function behaviorCloner(beh_inst) {
 			        // code here
 			        break;
 			}
+			newUsesRemaining -= 1;
 			with (instance_create_layer(clone_x, clone_y, "Instances", neighbors[0].object_index)) {
 				// do stuff? can I clone any arbitrary values on the cloned block?
 			}
@@ -109,7 +115,7 @@ function behaviorCloner(beh_inst) {
 	}
 	with(instance_create_layer(beh_inst.x,beh_inst.y,"Instances",beh_inst.object_index)) {
 		if (beh_inst.usesRemaining > 0) {
-			usesRemaining = beh_inst.usesRemaining - 1;	
+			usesRemaining = other.newUsesRemaining;
 		}
 	}
 }
