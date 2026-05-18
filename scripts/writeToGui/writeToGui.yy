@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"writeToGui",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"writeToGui",
+  "parent":{
+    "name":"scripts",
+    "path":"folders/scripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

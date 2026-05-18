@@ -14,6 +14,14 @@ Examples:
 * dirt grounds electrical currents, including wire floors
 * wet wood that can be next to fire for a while before turning into regular wood
 
+Win conditions can be unique to the level, such as "burn all the wood", "save five X from destruction by turn 50", etc.
+
+THE PLAYER SHOULD BE ABLE TO BE BEHAVIORAL. Would it be interesting to make them behavioral based on whichever block they last pushed? That could make things very interesting. Maybe make it an optional level condition?
+
+Rhell has an area effect that destroys the dummies once you enter it. A similar kind of tile that strips player type, deletes cloned blocks, etc. would be cool, too.
+
+Tile that only the player can walk on?
+
 Need to be able to process instantaneous movement versus turn-based movement, e.g. "moving across a series of arrow tiles" or "arrow tile moves player into pushing a block" as opposed to "player has moved and now we need to update the board". Treating them the same will create situations where the player gets moved by tiles and causes a lot of board updates, which can cause stateful blocks with timer variables (e.g. water turns to steam if left by fire too long) to pop their effects before the player ever gets a chance to react. It also prevents situations like "a fire tile is moving past several ice tiles via arrow tiles and melts all of them", because the melt effect would only happen on a full board update.
 
 Could add items for handling dangerous surfaces, e.g. oven mitts to move fire blocks?

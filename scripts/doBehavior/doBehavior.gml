@@ -15,7 +15,7 @@ function behavior3(beh_inst) {
 
 function behaviorWood(beh_inst) {
 	neighbors = getNeighbors(beh_inst);
-	newObjType = obj_wood;
+	newObjType = beh_inst.object_index;
 	newTimeToBurn = -1;
 	for (j = 0; j < array_length(neighbors); j++) {
 		neighbor = neighbors[j];
@@ -43,14 +43,14 @@ function behaviorWood(beh_inst) {
 function behaviorFire(beh_inst) {
 	with (beh_inst) {
 		if (timeToBurn > 0) {
-			with(instance_create_layer(beh_inst.x,beh_inst.y,"Instances",obj_fire)) {
+			with(instance_create_layer(beh_inst.x,beh_inst.y,"Instances",beh_inst.object_index)) {
 				timeToBurn = beh_inst.timeToBurn - 1;
 			}
 		} else if (timeToBurn == 0) {
 			
 		} else {
 			// keep on burnin' baby	
-			with(instance_create_layer(beh_inst.x,beh_inst.y,"Instances",obj_fire)) {
+			with(instance_create_layer(beh_inst.x,beh_inst.y,"Instances",beh_inst.object_index)) {
 				timeToBurn = -1;
 			}
 		}
@@ -120,6 +120,12 @@ function behaviorCloner(beh_inst) {
 	}
 }
 
+function behaviorDefault (beh_inst) {
+	with(instance_copy(false)) {
+		
+	}
+}
+
 function doBehavior(beh_inst){
 	switch (beh_inst.behavior_type) {
 	    case "3":
@@ -135,6 +141,7 @@ function doBehavior(beh_inst){
 			behaviorCloner(beh_inst);
 			break;
 	    default:
+			behaviorDefault(beh_inst);
 	        break;
 	}
 }
