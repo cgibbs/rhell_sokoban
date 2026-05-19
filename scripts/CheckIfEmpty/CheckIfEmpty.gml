@@ -11,14 +11,19 @@ function CheckIfEmpty(dir){
 			}
 			else
 			{
-				if(place_meeting(x-tileSize, y, pushables) and place_free(x-tileSize*2, y))
+				if(place_meeting(x-tileSize, y, pushables)
+				//and place_free(x-tileSize*2, y)
+				)
 				{
-					var inst = instance_place(x-tileSize, y, pushables);
-					if(!inst.snap)
-					{
-						inst.x -= tileSize;
-						x -= tileSize;
-						return true;
+					var nextTile = instance_place(x-tileSize*2, y, tile_objects);
+					if (place_free(x-tileSize*2, y) or nextTile != noone) {
+						var inst = instance_place(x-tileSize, y, pushables);
+						if(!inst.snap)
+						{
+							inst.x -= tileSize;
+							x -= tileSize;
+							return true;
+						}
 					}
 				}
 			}
@@ -32,15 +37,20 @@ function CheckIfEmpty(dir){
 			}
 			else
 			{
-				if(place_meeting(x+tileSize, y, pushables) and place_free(x+tileSize*2, y))
+				if(place_meeting(x+tileSize, y, pushables)
+				//and place_free(x+tileSize*2, y)
+				)
 				{
-					var inst = instance_place(x+tileSize, y, pushables);
-					if(!inst.snap)
-					{
-						inst.x += tileSize;
-						x += tileSize;
-						return true;
-					}	
+					var nextTile = instance_place(x+tileSize*2, y, tile_objects);
+					if (place_free(x+tileSize*2, y) or nextTile != noone) {
+						var inst = instance_place(x+tileSize, y, pushables);
+						if(!inst.snap)
+						{
+							inst.x += tileSize;
+							x += tileSize;
+							return true;
+						}	
+					}
 				}
 			}
 		return false;
@@ -53,14 +63,19 @@ function CheckIfEmpty(dir){
 			}
 			else
 			{
-				if(place_meeting(x, y-tileSize, pushables) and place_free(x, y-tileSize*2))
+				if(place_meeting(x, y-tileSize, pushables)
+				//and place_free(x, y-tileSize*2)
+				)
 				{
-					var inst = instance_place(x, y-tileSize, pushables);
-					if(!inst.snap)
-					{
-						inst.y -= tileSize;
-						y -= tileSize;
-						return true;
+					var nextTile = instance_place(x+tileSize*2, y, tile_objects);
+					if (place_free(x+tileSize*2, y) or nextTile != noone) {
+						var inst = instance_place(x, y-tileSize, pushables);
+						if(!inst.snap)
+						{
+							inst.y -= tileSize;
+							y -= tileSize;
+							return true;
+						}
 					}
 				}
 			}
@@ -74,14 +89,19 @@ function CheckIfEmpty(dir){
 			}
 			else
 			{
-				if(place_meeting(x, y+tileSize, pushables) and place_free(x, y+tileSize*2))
+				if(place_meeting(x, y+tileSize, pushables)
+				//and place_free(x, y+tileSize*2)
+				)
 				{
-					var inst = instance_place(x, y+tileSize, pushables);
-					if(!inst.snap)
-					{
-						inst.y += tileSize;
-						y += tileSize;
-						return true;
+					var nextTile = instance_place(x+tileSize*2, y, tile_objects);
+					if (place_free(x+tileSize*2, y) or nextTile != noone) {
+						var inst = instance_place(x, y+tileSize, pushables);
+						if(!inst.snap)
+						{
+							inst.y += tileSize;
+							y += tileSize;
+							return true;
+						}
 					}
 				}
 			}
