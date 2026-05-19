@@ -1,3 +1,5 @@
+depth = -1000;
+
 switch (behavior_type) {
     case "wood":
         image_index = 1;

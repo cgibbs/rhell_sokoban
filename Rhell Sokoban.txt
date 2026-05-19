@@ -13,6 +13,7 @@ Examples:
 * wire floors transmit electricity through connected sides but don't block tile movement
 * dirt grounds electrical currents, including wire floors
 * wet wood that can be next to fire for a while before turning into regular wood
+* antimatter block is destroyed along with its neighbor
 
 Win conditions can be unique to the level, such as "burn all the wood", "save five X from destruction by turn 50", etc.
 
@@ -35,3 +36,7 @@ Algorithm for doing the full board update:
 Might need to introduce an order for processing behavioral objects on the board to make things more consistent. For example, if you push a fire block next to both a burnable object and a water block, you want that to behave the same way each time (water puts out fire before it can burn the wood).
 
 Behavior methods should only affect themselves based on their neighbors. Don't make a fire method that burns its surroundings, make being burned a part of each burnable object's behavior code.
+
+I cloned myself onto a hole and it killed me, lmao. That should be a puzzle later.
+
+Need to make walls behavioral objects, too. I guess they're just inert?

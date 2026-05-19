@@ -4,11 +4,48 @@ function behavior3(beh_inst) {
 		image_index = beh_inst.countdown;
 		
 		with(instance_create_layer(beh_inst.x,beh_inst.y,"Instances",beh_inst.object_index)) {
-		countdown = beh_inst.countdown;	
-	}
+			behavior_type = beh_inst.behavior_type;
+			countdown = beh_inst.countdown;	
+		}
 	} else {
 		with(beh_inst) {
 			
+		}
+	}
+}
+
+function behaviorAntimatter(beh_inst) {
+	neighbors = getNeighbors(beh_inst);
+	if (array_length(neighbors) > 0) {
+		// remove this object from the beh list
+		// doing it this way will probably bite me in the ass later lmao
+		//copies = array_filter(other.beh, function(b) { return b.x == neighbors[0].x && b.y == neighbors[0].y });
+		show_debug_message(neighbors[0]);
+		copy_x = neighbors[0].x;
+		copy_y = neighbors[0].y;
+		copy_ind = neighbors[0].object_index;
+		with (neighbors[0]) {
+			if (neighbors[0].object_index == obj_player) {
+				deathScreen();
+				return;	
+			}
+			show_debug_message(self.behavior_type);
+			show_debug_message("destroyed that");
+			instance_destroy();	
+		}
+		copies = instance_place(copy_x, copy_y, all);
+		show_debug_message(copies);
+		show_debug_message(copies);
+		if (copies != noone) {
+			with(copies) {
+				show_debug_message(self);
+				show_debug_message("destroyed copy of that");
+				instance_destroy();	
+			}
+		}
+	} else {
+		with(instance_create_layer(beh_inst.x,beh_inst.y,"Instances",beh_inst.object_index)) {
+			behavior_type = beh_inst.behavior_type;	
 		}
 	}
 }
@@ -44,6 +81,7 @@ function behaviorFire(beh_inst) {
 	with (beh_inst) {
 		if (timeToBurn > 0) {
 			with(instance_create_layer(beh_inst.x,beh_inst.y,"Instances",beh_inst.object_index)) {
+				behavior_type = beh_inst.behavior_type;
 				timeToBurn = beh_inst.timeToBurn - 1;
 			}
 		} else if (timeToBurn == 0) {
@@ -51,6 +89,7 @@ function behaviorFire(beh_inst) {
 		} else {
 			// keep on burnin' baby	
 			with(instance_create_layer(beh_inst.x,beh_inst.y,"Instances",beh_inst.object_index)) {
+				behavior_type = beh_inst.behavior_type;
 				timeToBurn = -1;
 			}
 		}
@@ -59,6 +98,7 @@ function behaviorFire(beh_inst) {
 }
 
 function behaviorCloner(beh_inst) {
+	show_debug_message(beh_inst)
 	if (beh_inst.usesRemaining == 0) {
 		show_debug_message("empty cloner");
 		return;	
@@ -66,7 +106,6 @@ function behaviorCloner(beh_inst) {
 	newUsesRemaining = beh_inst.usesRemaining;
 	// get neighbors
 	neighbors = getNeighbors(beh_inst);
-	show_debug_message(neighbors);
 	// get first neighbor (starting from north going clockwise), clone it to first empty spot
 	if (array_length(neighbors) > 0) {
 		emptyNeighbors = getNeighborsIncludeEmpty(beh_inst);
@@ -107,6 +146,8 @@ function behaviorCloner(beh_inst) {
 			}
 			newUsesRemaining -= 1;
 			with (instance_create_layer(clone_x, clone_y, "Instances", neighbors[0].object_index)) {
+				behavior_type =  other.neighbors[0].behavior_type;
+				//usesRemaining = other.newUsesRemaining;
 				// do stuff? can I clone any arbitrary values on the cloned block?
 			}
 		}
@@ -120,11 +161,16 @@ function behaviorCloner(beh_inst) {
 }
 
 function behaviorDefault (beh_inst) {
-	with(instance_copy(false)) {
-		
+	newBehaviorType = beh_inst.behavior_type;
+	with(instance_create_layer(beh_inst.x,beh_inst.y,"Instances",beh_inst.object_index)) {
+		// need to do this for all player variables? Is there a better way?
+		behavior_type = other.newBehaviorType;
 	}
 }
 
+// important note: we're handling it this way for the moment because you get a handle
+// to both the behavioral object AND the player. No uses for that currently, but maybe
+// in the future?
 function doBehavior(beh_inst){
 	switch (beh_inst.behavior_type) {
 	    case "3":
@@ -138,6 +184,9 @@ function doBehavior(beh_inst){
 			break;
 		case "cloner":
 			behaviorCloner(beh_inst);
+			break;
+		case "antimatter":
+			behaviorAntimatter(beh_inst);
 			break;
 	    default:
 			behaviorDefault(beh_inst);
