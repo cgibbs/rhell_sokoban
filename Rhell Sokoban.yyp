@@ -26,7 +26,7 @@
     {"id":{"name":"obj_3","path":"objects/obj_3/obj_3.yy",},},
     {"id":{"name":"obj_antimatter","path":"objects/obj_antimatter/obj_antimatter.yy",},},
     {"id":{"name":"obj_box","path":"objects/obj_box/obj_box.yy",},},
-    {"id":{"name":"obj_buttonFire","path":"objects/obj_buttonFire/obj_buttonFire.yy",},},
+    {"id":{"name":"obj_button","path":"objects/obj_button/obj_button.yy",},},
     {"id":{"name":"obj_cloner","path":"objects/obj_cloner/obj_cloner.yy",},},
     {"id":{"name":"obj_fire","path":"objects/obj_fire/obj_fire.yy",},},
     {"id":{"name":"obj_gui","path":"objects/obj_gui/obj_gui.yy",},},

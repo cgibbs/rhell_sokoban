@@ -17,31 +17,25 @@ function behavior3(beh_inst) {
 function behaviorAntimatter(beh_inst) {
 	neighbors = getNeighbors(beh_inst);
 	if (array_length(neighbors) > 0) {
-		// remove this object from the beh list
-		// doing it this way will probably bite me in the ass later lmao
-		//copies = array_filter(other.beh, function(b) { return b.x == neighbors[0].x && b.y == neighbors[0].y });
-		show_debug_message(neighbors[0]);
 		copy_x = neighbors[0].x;
 		copy_y = neighbors[0].y;
 		copy_ind = neighbors[0].object_index;
 		with (neighbors[0]) {
-			if (neighbors[0].object_index == obj_player) {
+			if (object_index == obj_player) {
 				deathScreen();
 				return;	
 			}
-			show_debug_message(self.behavior_type);
-			show_debug_message("destroyed that");
 			instance_destroy();	
 		}
 		copies = instance_place(copy_x, copy_y, all);
-		show_debug_message(copies);
-		show_debug_message(copies);
 		if (copies != noone) {
 			with(copies) {
-				show_debug_message(self);
-				show_debug_message("destroyed copy of that");
 				instance_destroy();	
 			}
+		}
+		if (object_index == obj_player) {
+			deathScreen();
+			return;	
 		}
 	} else {
 		with(instance_create_layer(beh_inst.x,beh_inst.y,"Instances",beh_inst.object_index)) {
@@ -73,6 +67,7 @@ function behaviorWood(beh_inst) {
 	}
 	with(instance_create_layer(beh_inst.x,beh_inst.y,"Instances",newObjType)) {
 		if (other.newTimeToBurn > -1) timeToBurn = other.newTimeToBurn;
+		behavior_type = beh_inst.behavior_type;	
 	}
 }
 
@@ -98,11 +93,11 @@ function behaviorFire(beh_inst) {
 }
 
 function behaviorCloner(beh_inst) {
-	show_debug_message(beh_inst)
 	if (beh_inst.usesRemaining == 0) {
 		show_debug_message("empty cloner");
 		return;	
 	}
+	newBehaviorType = beh_inst.behavior_type;
 	newUsesRemaining = beh_inst.usesRemaining;
 	// get neighbors
 	neighbors = getNeighbors(beh_inst);
@@ -145,17 +140,19 @@ function behaviorCloner(beh_inst) {
 			        break;
 			}
 			newUsesRemaining -= 1;
+			// cloned object
 			with (instance_create_layer(clone_x, clone_y, "Instances", neighbors[0].object_index)) {
 				behavior_type =  other.neighbors[0].behavior_type;
-				//usesRemaining = other.newUsesRemaining;
 				// do stuff? can I clone any arbitrary values on the cloned block?
 			}
 		}
 		
 	}
 	with(instance_create_layer(beh_inst.x,beh_inst.y,"Instances",beh_inst.object_index)) {
+		//show_debug_message(object_index);
 		if (beh_inst.usesRemaining > 0) {
 			usesRemaining = other.newUsesRemaining;
+			behavior_type = beh_inst.behavior_type;	
 		}
 	}
 }

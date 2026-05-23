@@ -39,4 +39,6 @@ Behavior methods should only affect themselves based on their neighbors. Don't m
 
 I cloned myself onto a hole and it killed me, lmao. That should be a puzzle later.
 
-Need to make walls behavioral objects, too. I guess they're just inert?
+DONE, DON'T DO THIS Need to make walls behavioral objects, too. I guess they're just inert? Update: Do I need to do that, actually? Nope lmao.
+
+If buttons have a behavior_type string, they can be turned into other buttons. That could be fun.

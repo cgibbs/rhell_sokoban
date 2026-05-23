@@ -32,7 +32,7 @@
   ],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
-  "solid":false,
+  "solid":true,
   "spriteId":{
     "name":"sChip",
     "path":"sprites/sChip/sChip.yy",
