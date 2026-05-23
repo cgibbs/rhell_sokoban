@@ -11,6 +11,9 @@ switch (behavior_type) {
 	case "antimatter":
 		sprite_index = sButtonAntimatter;
         break;
+	case "player":
+		sprite_index = sButtonPlayer;
+        break;
     default:
         // code here
         break;

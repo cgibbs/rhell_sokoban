@@ -10,6 +10,9 @@ switch (behavior_type) {
 	case "cloner":
         image_index = 3;
         break;
+	case "antimatter":
+		image_index = 4;
+		break;
     default:
         image_index = 0;
         break;

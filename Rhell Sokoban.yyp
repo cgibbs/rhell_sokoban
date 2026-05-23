@@ -47,6 +47,7 @@
     {"id":{"name":"sButtonAntimatter","path":"sprites/sButtonAntimatter/sButtonAntimatter.yy",},},
     {"id":{"name":"sButtonCloner","path":"sprites/sButtonCloner/sButtonCloner.yy",},},
     {"id":{"name":"sButtonFire","path":"sprites/sButtonFire/sButtonFire.yy",},},
+    {"id":{"name":"sButtonPlayer","path":"sprites/sButtonPlayer/sButtonPlayer.yy",},},
     {"id":{"name":"sButtonWood","path":"sprites/sButtonWood/sButtonWood.yy",},},
     {"id":{"name":"sChip","path":"sprites/sChip/sChip.yy",},},
     {"id":{"name":"sCloner","path":"sprites/sCloner/sCloner.yy",},},

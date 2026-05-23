@@ -33,7 +33,7 @@ function behaviorAntimatter(beh_inst) {
 				instance_destroy();	
 			}
 		}
-		if (object_index == obj_player) {
+		if (beh_inst.object_index == obj_player) {
 			deathScreen();
 			return;	
 		}
@@ -108,10 +108,7 @@ function behaviorCloner(beh_inst) {
 		for (ec = 0; ec < array_length(emptyNeighbors); ec++) {
 			if (emptyNeighbors[ec] == noone) emptyCount++;
 		}
-		if (
-		//array_length(emptyNeighbors) > 0
-		emptyCount > 0
-		) {
+		if (emptyCount > 0) {
 			enIndex = -1;
 			for (en = 0; en < array_length(emptyNeighbors); en++) {
 				if ((emptyNeighbors[en] == noone) && enIndex == -1) enIndex = en;
@@ -149,11 +146,11 @@ function behaviorCloner(beh_inst) {
 		
 	}
 	with(instance_create_layer(beh_inst.x,beh_inst.y,"Instances",beh_inst.object_index)) {
-		//show_debug_message(object_index);
+		show_debug_message(object_index);
 		if (beh_inst.usesRemaining > 0) {
 			usesRemaining = other.newUsesRemaining;
-			behavior_type = beh_inst.behavior_type;	
 		}
+		behavior_type = beh_inst.behavior_type;	
 	}
 }
 
@@ -161,7 +158,7 @@ function behaviorDefault (beh_inst) {
 	newBehaviorType = beh_inst.behavior_type;
 	with(instance_create_layer(beh_inst.x,beh_inst.y,"Instances",beh_inst.object_index)) {
 		// need to do this for all player variables? Is there a better way?
-		behavior_type = other.newBehaviorType;
+		behavior_type = beh_inst.behavior_type;
 	}
 }
 
