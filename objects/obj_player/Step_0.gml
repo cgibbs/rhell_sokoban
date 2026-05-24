@@ -6,6 +6,9 @@ left = keyboard_check_pressed(vk_left);
 right = keyboard_check_pressed(vk_right);
 up = keyboard_check_pressed(vk_up);
 down = keyboard_check_pressed(vk_down);
+restart = keyboard_check_pressed(ord("R"));
+
+if (restart) room_restart();
 
 temp_room_step = global.room_step;
 
