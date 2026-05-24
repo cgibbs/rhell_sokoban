@@ -48,33 +48,56 @@ function behaviorWood(beh_inst) {
 	neighbors = getNeighbors(beh_inst);
 	newObjType = beh_inst.object_index;
 	newTimeToBurn = -1;
-	for (j = 0; j < array_length(neighbors); j++) {
-		neighbor = neighbors[j];
-		if (neighbor.behavior_type == "fire") {
-			if (beh_inst.timeToBurn - 1 == 0) {
-				newObjType = obj_fire;
-				newTimeToBurn = woodTimeToStayBurning;
-			}
-			else {
-				newTimeToBurn = beh_inst.timeToBurn - 1;
-			}
-		} else {
-			
+	water_count = 0;
+	fire_count = 0;
+	for (fn = 0; fn < array_length(neighbors); fn++) {
+		if (neighbors[fn].behavior_type == "water") {
+			water_count += 1;
+		} else if (neighbors[fn].behavior_type == "fire") {
+			fire_count += 1;
 		}
 	}
+	// if no fire around and at least 1 water around, make wet wood
+	if ((fire_count == 0) and water_count > 0) {
+		newObjType = obj_wetWood;
+	} 
+	// if fire and water and fire is greater, do nothing
+	else if ((fire_count > 0) and water_count > 0) {
+		newObjType = obj_wood;
+	}
+	// if fire and no water, do the normal fire stuff
+	else if ((fire_count > 0) and water_count == 0) {
+		if (beh_inst.timeToBurn - 1 == 0) {
+			newObjType = obj_fire;
+			newTimeToBurn = woodTimeToStayBurning;
+		}
+		else {
+			newTimeToBurn = beh_inst.timeToBurn - 1;
+		}
+	}
+
 	if (array_length(neighbors) < 1) {
 		newTimeToBurn = woodTimeUntilBurn;
 	}
 	with(instance_create_layer(beh_inst.x,beh_inst.y,"Instances",newObjType)) {
 		if (other.newTimeToBurn > -1) timeToBurn = other.newTimeToBurn;
-		behavior_type = beh_inst.behavior_type;	
+		//behavior_type = beh_inst.behavior_type;	
 	}
 }
 
-
 function behaviorFire(beh_inst) {
 	with (beh_inst) {
-		if (timeToBurn > 0) {
+		neighbors = getNeighbors(beh_inst);
+		water_count = 0;
+		for (fn = 0; fn < array_length(neighbors); fn++) {
+			if (neighbors[fn].behavior_type == "water") {
+				water_count += 1;
+			}
+		}
+		// if more than two neighbors are water, destroy fire
+		if (water_count > 1) {
+			instance_destroy();
+		} else if (timeToBurn > 0) {
 			with(instance_create_layer(beh_inst.x,beh_inst.y,"Instances",beh_inst.object_index)) {
 				behavior_type = beh_inst.behavior_type;
 				timeToBurn = beh_inst.timeToBurn - 1;
@@ -92,9 +115,52 @@ function behaviorFire(beh_inst) {
 	return;
 }
 
+function behaviorWater(beh_inst) {
+	with (beh_inst) {
+		neighbors = getNeighbors(beh_inst);
+		fire_count = 0;
+		for (fn = 0; fn < array_length(neighbors); fn++) {
+			if (neighbors[fn].behavior_type == "fire") {
+				fire_count += 1;
+			}
+		}
+		
+		// if more than two neighbors are fire, destroy water
+		if (fire_count > 1) {
+			instance_destroy();	
+		} else {
+			with(instance_create_layer(beh_inst.x,beh_inst.y,"Instances",beh_inst.object_index)) {
+				behavior_type = beh_inst.behavior_type;	
+			}
+		}
+	}
+}
+
+function behaviorWetWood(beh_inst) {
+	with (beh_inst) {
+		neighbors = getNeighbors(beh_inst);
+		fire_count = 0;
+		for (fn = 0; fn < array_length(neighbors); fn++) {
+			if (neighbors[fn].behavior_type == "fire") {
+				fire_count += 1;
+			}
+		}
+		
+		// if neighbor is fire, dry wood
+		if (fire_count > 0) {
+			with(instance_create_layer(beh_inst.x,beh_inst.y,"Instances",obj_wood)) {
+				
+			}
+		} else {
+			with(instance_create_layer(beh_inst.x,beh_inst.y,"Instances",beh_inst.object_index)) {
+				behavior_type = beh_inst.behavior_type;	
+			}
+		}
+	}
+}
+
 function behaviorCloner(beh_inst) {
 	if (beh_inst.usesRemaining == 0) {
-		show_debug_message("empty cloner");
 		return;	
 	}
 	newBehaviorType = beh_inst.behavior_type;
@@ -181,6 +247,12 @@ function doBehavior(beh_inst){
 			break;
 		case "antimatter":
 			behaviorAntimatter(beh_inst);
+			break;
+		case "water":
+			behaviorWater(beh_inst);
+			break;
+		case "wet_wood":
+			behaviorWetWood(beh_inst);
 			break;
 	    default:
 			behaviorDefault(beh_inst);
